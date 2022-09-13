@@ -1,0 +1,9 @@
+{
+    "error.user_not_found": "Usuario no encontrado",
+    "error.passwords_do_not_match": "Las contrasenas no concuerdan",
+    "error.invalid_role_input": "El rol ingresado es invalido",
+    "error.user_has_not_permissions": "El usuario no tiene permisos",
+    "error.email_already_in_use": "Email actualmente en uso",
+    "error.sign_in": "Error al iniciar sesion",
+    "error.user_or_password_invalid": "Usuario o contrasena invalida"
+}

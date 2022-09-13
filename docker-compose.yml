@@ -1,0 +1,93 @@
+version: "3.8"
+services:
+    nodeexample:
+        build:
+            context: .
+            dockerfile: Dockerfile
+            args:
+                DEFAULT_PORT: ${PORT}
+        environment:
+            NODE_ENV: DEVELOPMENT
+        volumes:
+            - .:/nodeexample
+        ports:
+            - ${PORT}:${PORT}
+        networks:
+            - frontend
+            - backend-sql
+            - backend-nosql
+            - backend-inmemory
+        depends_on:
+            - nosqldb
+            - sqldb
+            - inmemorydb
+        container_name: nodeexample
+        command: [ "npm", "run", "start:dev" ]
+        restart: always
+
+    sqldb:
+        image: postgres:alpine
+        environment:
+            POSTGRES_DB: ${DB_SQL_NAME}
+            POSTGRES_USER: ${DB_SQL_USER_NAME}
+            POSTGRES_PASSWORD: ${DB_SQL_PASSWORD}
+        volumes:
+            - sql-data:/var/lib/postgresql/data
+        ports:
+            - ${DB_SQL_PORT}:${DB_SQL_PORT}
+        networks:
+            - backend-sql
+        container_name: sqldb
+        restart: always
+
+    nosqldb:
+        image: mongo:5.0.10
+        environment:
+            MONGO_INITDB_DATABASE: ${DB_NO_SQL_NAME}
+            MONGO_INITDB_ROOT_USERNAME: ${DB_NO_SQL_USER_NAME}
+            MONGO_INITDB_ROOT_PASSWORD: ${DB_NO_SQL_PASSWORD}
+        volumes:
+            - nosql-data:/data/db
+        ports:
+            - ${DB_NO_SQL_PORT}:${DB_NO_SQL_PORT}
+        networks:
+            - backend-nosql
+        container_name: nosqldb
+        restart: always
+
+    inmemorydb:
+        # TODO: In production:
+        # image: redis/redis-stack-server:6.2.2-v5
+        image: redis/redis-stack:6.2.2-v5
+        environment:
+            REDIS_ARGS: "--requirepass ${DB_IN_MEMORY_PASSWORD}"
+        volumes:
+            - inmemory-data:/bitnami/redis/data
+        ports:
+            - ${DB_IN_MEMORY_PORT}:${DB_IN_MEMORY_PORT}
+            - ${DB_IN_MEMORY_PORT_DEBUG}:${DB_IN_MEMORY_PORT_DEBUG}
+        networks:
+            - backend-inmemory
+        container_name: inmemorydb
+        restart: always
+
+    adminer:
+        image: adminer:4.8.1
+        ports:
+            - ${DB_SQL_PORT_DEBUG}:${DB_SQL_PORT_DEBUG}
+        networks:
+            - backend-sql
+        container_name: adminer
+        restart: always
+
+volumes:
+    sql-data:
+    nosql-data:
+    inmemory-data:
+
+
+networks:
+    frontend:
+    backend-sql:
+    backend-nosql:
+    backend-inmemory:

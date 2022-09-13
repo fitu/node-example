@@ -1,0 +1,26 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+    name: node-example-deployment
+spec:
+    selector:
+        matchLabels:
+            app: node-example
+    template:
+        metadata:
+            labels:
+                app: node-example
+        spec:
+            containers:
+                - name: node-example
+                  image: fitulp/node-example:latest
+                  envFrom:
+                      - configMapRef:
+                            name: node-example-env
+                      - secretRef:
+                            name: node-example-secret
+                  imagePullPolicy: Always
+                  resources:
+                      limits:
+                          memory: 1024Mi
+                          cpu: 1024m

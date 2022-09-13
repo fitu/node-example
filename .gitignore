@@ -1,0 +1,21 @@
+# Dependecies
+node_modules
+dist
+
+# Secrets: This line should be uncommented
+# secrets
+
+# Images
+images/*
+!images/.gitkeep
+
+# Logs
+logs/*
+!logs/.gitkeep
+*.log
+
+# SSL/TLS
+*.key
+
+# IDE
+.vscode/*.log
