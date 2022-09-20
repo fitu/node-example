@@ -90,6 +90,6 @@ remove:
 
 clean: stop down remove
 
-init: clean clean-dist build-dist build populate-db run
+init: clean build-dist build populate-db run
 
-init-db: clean clean-dist build-dist build populate-db run-db
+init-db: clean build-dist build populate-db run-db
