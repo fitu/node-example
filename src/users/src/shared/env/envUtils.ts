@@ -18,7 +18,7 @@ const validateEnv = (): any => {
     // Validate and clear envs
     /* eslint-disable @typescript-eslint/naming-convention */
     const env = cleanEnv(process.env, {
-        DB_TYPE: str({ choices: [DbType.SQL.toString(), DbType.NO_SQL.toString(), DbType.IN_MEMORY.toString()] }),
+        DB_TYPE: str({ choices: [DbType.SQL.toString(), DbType.NO_SQL.toString()] }),
         DB_QUERIES: str({ choices: [DbQuery.ORM.toString(), DbQuery.RAW.toString()] }),
 
         DB_SQL_NAME: str(),
@@ -32,11 +32,6 @@ const validateEnv = (): any => {
         DB_NO_SQL_PASSWORD: str(),
         DB_NO_SQL_HOST: str(),
         DB_NO_SQL_PORT: port(),
-
-        DB_IN_MEMORY_USER_NAME: str(),
-        DB_IN_MEMORY_PASSWORD: str(),
-        DB_IN_MEMORY_HOST: str(),
-        DB_IN_MEMORY_PORT: port(),
 
         VERSION: str({ choices: Object.values(Versions) }),
 

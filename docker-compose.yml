@@ -1,30 +1,51 @@
 version: "3.8"
 services:
-    nodeexample:
+    nodeexampleusers:
         build:
             context: .
             dockerfile: ./src/users/Dockerfile
             args:
-                DEFAULT_PORT: ${PORT}
+                DEFAULT_PORT: ${USERS_PORT}
         environment:
             NODE_ENV: DEVELOPMENT
+        env_file:
+            - ./src/users/secrets/.env
         volumes:
             - ./src/users:/nodeexample
         ports:
-            - ${PORT}:${PORT}
+            - ${USERS_PORT}:${USERS_PORT}
         networks:
             - frontend
             - backend-sql
             - backend-nosql
-            - backend-inmemory
         depends_on:
             - nosqldb
             - sqldb
-            - inmemorydb
-        container_name: nodeexample
+            - nodeexampleroutines
+        container_name: node-example-users
         command: [ "npm", "run", "start:dev" ]
         restart: always
-
+    nodeexampleroutines:
+        build:
+            context: .
+            dockerfile: ./src/routines/Dockerfile
+            args:
+                DEFAULT_PORT: ${ROUTINES_PORT}
+        env_file:
+            - ./src/routines/secrets/.env
+        environment:
+            NODE_ENV: DEVELOPMENT
+        volumes:
+            - ./src/routines:/nodeexample
+        ports:
+            - ${ROUTINES_PORT}:${ROUTINES_PORT}
+        networks:
+            - backend-inmemory
+        depends_on:
+            - inmemorydb
+        container_name: node-example-routines
+        command: [ "npm", "run", "start:dev" ]
+        restart: always
     sqldb:
         image: postgres:alpine
         environment:

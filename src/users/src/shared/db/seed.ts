@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/restrict-template-expressions */
 import yargs from "yargs";
 
 import UserService from "@user/domain/UserService";
@@ -42,7 +43,6 @@ const argv = yargs
     .usage("Usage: $0 -t DbType -q DbQuery")
     .example(`$0 -t ${DbType.SQL}`, "Populate SQL")
     .example(`$0 -t ${DbType.NO_SQL}`, "Populate NO SQL")
-    .example(`$0 -t ${DbType.IN_MEMORY}`, "Populate IN MEMORY")
     .example(`$0 -q ${DbQuery.ORM}`, "Populate with ORM")
     .example(`$0 -q ${DbQuery.RAW}`, "Populate with RAW")
     .option("t", {

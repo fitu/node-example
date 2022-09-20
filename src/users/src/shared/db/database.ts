@@ -1,12 +1,10 @@
 import SqlDb from "@shared/db/sql/SqlDb";
 import NoSqlDb from "@shared/db/noSql/NoSqlDb";
-import InMemoryDb from "@shared/db/inMemory/InMemoryDb";
 
 /* eslint-disable @typescript-eslint/naming-convention */
 enum DbType {
     SQL = "sql",
     NO_SQL = "no_sql",
-    IN_MEMORY = "in_memory",
 }
 
 /* eslint-disable @typescript-eslint/naming-convention */
@@ -29,7 +27,6 @@ const getDb = (env: any, dbType: string): Database => {
     const db: Database = {
         [DbType.SQL]: new SqlDb(env),
         [DbType.NO_SQL]: new NoSqlDb(env),
-        [DbType.IN_MEMORY]: new InMemoryDb(env),
     }[dbType];
 
     return db;
