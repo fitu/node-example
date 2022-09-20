@@ -18,9 +18,29 @@ import UpdateRoutineByIdInteractor, {
 import DeleteRoutineByIdInteractor, {
     DeleteRoutineByIdData,
 } from "modules/routine/application/DeleteRoutineByIdInteractor";
+import GetRoutineByIdInteractor, { GetRoutineByIdData } from "@routine/application/GetRoutineByIdInteractor";
 
 class RoutineController implements Controller {
     constructor(private readonly routineService: RoutineService) {}
+
+    getRoutineById = async (req: Request, res: Response, next: NextFunction): Promise<void> => {
+        const { id } = req.params;
+        const data: GetRoutineByIdData = { routineId: id };
+
+        try {
+            const interactor = new GetRoutineByIdInteractor(this.routineService);
+            const result = await interactor.execute(data);
+            const routine = result.toView();
+
+            res.status(httpStatus.OK).json({ success: true, data: routine });
+        } catch (error: any) {
+            if (error instanceof RoutineNotFoundError) {
+                next(new ErrorHandler(httpStatus.NOT_FOUND, error));
+                return;
+            }
+            next(error);
+        }
+    };
 
     getRoutineByUserId = async (req: Request, res: Response, next: NextFunction): Promise<void> => {
         const { id } = req.params;

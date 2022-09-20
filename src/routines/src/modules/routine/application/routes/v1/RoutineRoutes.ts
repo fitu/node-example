@@ -17,6 +17,7 @@ class RoutineRoutes extends Routes {
 
     private validations = {
         getOne: [param("id").notEmpty().isUUID()],
+        getOneByUserId: [param("id").notEmpty().isUUID()],
         getAll: [
             query("page").isNumeric().optional({ nullable: true }),
             query("itemsPerPage").isNumeric().optional({ nullable: true }),
@@ -28,7 +29,8 @@ class RoutineRoutes extends Routes {
 
     protected override initializeRoutes = (): void => {
         this.router.get(this.path, this.validations.getAll, isValid, this.controller.getRoutines);
-        this.router.get(`${this.path}/:id`, this.validations.getOne, isValid, this.controller.getRoutineByUserId);
+        this.router.get(`${this.path}/:id`, this.validations.getOne, isValid, this.controller.getRoutineById);
+        this.router.get(`${this.path}/:id`, this.validations.getOneByUserId, isValid, this.controller.getRoutineByUserId);
         this.router.post(`${this.path}`, this.validations.signUpPost, this.controller.createRoutine);
         this.router.put(`${this.path}/:id`, this.validations.putOne, isValid, this.controller.updateRoutineById);
         this.router.delete(`${this.path}/:id`, this.validations.deleteOne, isValid, this.controller.deleteRoutineById);

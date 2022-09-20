@@ -7,6 +7,7 @@ interface Repository {
     updateRoutineById: (routineId: string, routine: Routine) => Promise<Routine | null>;
     deleteRoutineById: (routineId: string) => Promise<boolean>;
     getAllRoutines(page: number, itemsPerPage: number): Promise<Page<Array<Routine>>>;
+    getRoutineById: (routineId: string) => Promise<Routine | null>;
     getRoutineByUserId: (userId: string) => Promise<Routine | null>;
 }
 

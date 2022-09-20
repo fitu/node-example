@@ -4,6 +4,7 @@ import { KEY_DELIMITER } from "@shared/db/inMemory/InMemoryDb";
 
 const ROUTINE_KEY = "routine";
 const ROUTINE_UNIQUE_KEY = "routine-unique";
+const ROUTINE_USER_ID_KEY = "routine-user-id";
 
 // TODO: add "columns"
 
@@ -36,9 +37,13 @@ class RoutineDao {
     }
 }
 
+// eslint-disable-next-line @typescript-eslint/restrict-template-expressions
 const generateRoutineKey = (id: string): string => `${ROUTINE_KEY}${KEY_DELIMITER}${id}`;
 
 const generateUniqueRoutineKey = () => ROUTINE_UNIQUE_KEY;
 
-export { generateRoutineKey, generateUniqueRoutineKey };
+// eslint-disable-next-line @typescript-eslint/restrict-template-expressions
+const generateRoutineUserIdKey = (userId: string) => `${ROUTINE_USER_ID_KEY}${KEY_DELIMITER}${userId}`;
+
+export { generateRoutineKey, generateUniqueRoutineKey, generateRoutineUserIdKey };
 export default RoutineDao;

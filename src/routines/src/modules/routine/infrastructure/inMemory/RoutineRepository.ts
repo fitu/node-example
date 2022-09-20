@@ -5,6 +5,7 @@ import Page from "@shared/Page";
 import Routine from "modules/routine/domain/Routine";
 import { Repository } from "modules/routine/infrastructure/Repository";
 import RoutineDao, {
+    generateRoutineUserIdKey,
     generateUniqueRoutineKey,
     generateRoutineKey,
 } from "modules/routine/infrastructure/inMemory/RoutineDao";
@@ -24,7 +25,8 @@ class RoutineRepository implements Repository {
     public async insert(routine: Routine): Promise<Routine> {
         const routineToSave: RoutineDao = await fromModelToRoutineDao(routine);
 
-        await this.client.sAdd(generateUniqueRoutineKey(), routineToSave.id);
+        await this.client.sAdd(generateUniqueRoutineKey(), routine.userId);
+        await this.client.json.set(generateRoutineUserIdKey(routineToSave.userId), KEY_ROOT, routineToSave.id);
         await this.client.json.set(generateRoutineKey(routineToSave.id), KEY_ROOT, routineToSave as any);
 
         const newRoutine: Routine = await fromRoutineDaoToModel(routineToSave);
@@ -40,15 +42,20 @@ class RoutineRepository implements Repository {
     }
 
     public async updateRoutineById(routineId: string, routine: Routine): Promise<Routine | null> {
-        const routineToUpdate = await this.getRoutineByUserId(routineId);
+        const routineToUpdate = await this.getRoutineById(routineId);
 
         if (!routineToUpdate) {
             return null;
         }
 
-        if (routine.id !== routineToUpdate.id) {
-            await this.client.sRem(generateUniqueRoutineKey(), routineToUpdate.id);
-            await this.client.sAdd(generateUniqueRoutineKey(), routine.id);
+        if (routine.userId !== routineToUpdate.userId) {
+            await this.client.sRem(generateUniqueRoutineKey(), routineToUpdate.userId);
+            await this.client.sAdd(generateUniqueRoutineKey(), routine.userId);
+        }
+
+        if (routineId !== routineToUpdate.id) {
+            await this.client.json.del(generateRoutineUserIdKey(routineToUpdate.userId), KEY_ROOT);
+            await this.client.json.set(generateRoutineUserIdKey(routine.userId), KEY_ROOT, routineId);
         }
 
         const routineDao: RoutineDao = await fromModelToRoutineDao(routine);
@@ -69,14 +76,15 @@ class RoutineRepository implements Repository {
 
         const routineDao: RoutineDao = await fromModelToRoutineDao(routine);
 
-        await this.client.sRem(generateUniqueRoutineKey(), routineDao.id);
+        await this.client.sRem(generateUniqueRoutineKey(), routineDao.userId);
+        await this.client.json.del(generateRoutineUserIdKey(routineDao.userId), KEY_ROOT);
         await this.client.json.del(generateRoutineKey(userId), KEY_ROOT);
 
         return true;
     }
 
     public async getAllRoutines(page: number, itemsPerPage: number): Promise<Page<Array<Routine>>> {
-        const routineIds: Array<string> = await this.client.sort(generateUniqueRoutineKey(), {
+        const routineUserIds: Array<string> = await this.client.sort(generateUniqueRoutineKey(), {
             BY: "nosort",
             DIRECTION: "ASC",
             LIMIT: {
@@ -85,8 +93,7 @@ class RoutineRepository implements Repository {
             },
         });
 
-        // TODO: this is an error
-        const routinesPromises = routineIds?.map(async (routineId) => this.getRoutineByUserId(routineId)) ?? [];
+        const routinesPromises = routineUserIds?.map(async (userId) => this.getRoutineByUserId(userId)) ?? [];
         const routines: Array<Routine> = await Promise.all(routinesPromises);
 
         return new Page<Array<Routine>>({
@@ -97,8 +104,8 @@ class RoutineRepository implements Repository {
         });
     }
 
-    public async getRoutineByUserId(userId: string): Promise<Routine | null> {
-        const routinesDao: Array<RoutineDao> = (await this.client.json.get(generateRoutineKey(userId), {
+    public async getRoutineById(routineId: string): Promise<Routine | null> {
+        const routinesDao: Array<RoutineDao> = (await this.client.json.get(generateRoutineKey(routineId), {
             path: KEY_ROOT,
         })) as unknown as Array<RoutineDao>;
 
@@ -107,6 +114,20 @@ class RoutineRepository implements Repository {
         }
 
         const routine: Routine = await fromRoutineDaoToModel(routinesDao[0]);
+
+        return routine;
+    }
+
+    public async getRoutineByUserId(userId: string): Promise<Routine | null> {
+        const routineIds: Array<string> = (await this.client.json.get(generateRoutineUserIdKey(userId), {
+            path: KEY_ROOT,
+        })) as unknown as Array<string>;
+
+        if (!routineIds) {
+            return null;
+        }
+
+        const routine = await this.getRoutineById(routineIds[0]);
 
         return routine;
     }

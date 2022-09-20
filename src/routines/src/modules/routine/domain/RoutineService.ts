@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/require-await */
 import Page from "@shared/Page";
 import RoutineNotFoundError from "modules/routine/application/error/RoutineNotFoundError";
 import { Repository as RoutineRepository } from "modules/routine/infrastructure/Repository";
@@ -16,6 +17,10 @@ class RoutineService {
 
     public async getAllRoutines(page: number, itemsPerPage: number): Promise<Page<Array<Routine>>> {
         return this.routineRepository.getAllRoutines(page, itemsPerPage);
+    }
+
+    public async getRoutineById(routineId: string): Promise<Routine | null> {
+        return this.routineRepository.getRoutineById(routineId);
     }
 
     public async getRoutineByUserId(userId: string): Promise<Routine | null> {

@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/require-await */
 import Page from "@shared/Page";
 import { doPasswordsMatch } from "@utils/hashUtils";
 import UserNotFoundError from "@user/application/error/UserNotFoundError";

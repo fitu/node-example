@@ -18,8 +18,6 @@ class UpdateRoutineByIdInteractor {
             throw new RoutineNotFoundError();
         }
 
-        // TODO: check permissions
-
         const routineDataWithoutNulls = filterNulls(routineData);
         const routineToUpdate = await Routine.newInstance({
             ...routine,

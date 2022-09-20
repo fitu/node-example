@@ -7,6 +7,7 @@ enum ErrorCodes {
 
     NOT_ALLOWED = "na-0",
     USER_HAS_NOT_ROUTINE = "na-1",
+    ROUTINE_ALREADY_EXISTS = "na-2",
 
     INVALID_DATA = "id-0",
 }

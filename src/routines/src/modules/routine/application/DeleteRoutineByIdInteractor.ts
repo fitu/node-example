@@ -8,7 +8,6 @@ class DeleteRoutineByIdInteractor {
     constructor(private readonly routineService: RoutineService) {}
 
     public async execute({ routineId }: DeleteRoutineByIdData): Promise<void> {
-        // TODO: check permissions
         await this.routineService.deleteRoutineById(routineId);
     }
 }
