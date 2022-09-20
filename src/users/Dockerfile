@@ -7,11 +7,11 @@ RUN mkdir -p /nodeexample
 WORKDIR /nodeexample
 
 # Copy and install dependencies
-COPY package*.json /nodeexample/
+COPY ./src/users/package*.json /nodeexample/
 RUN npm install
 
 # Move all the app's code to the working dir
-COPY . /nodeexample/
+COPY ./src/users/ /nodeexample/
 
 # Compile the app
 RUN npm run build

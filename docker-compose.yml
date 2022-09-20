@@ -3,13 +3,13 @@ services:
     nodeexample:
         build:
             context: .
-            dockerfile: Dockerfile
+            dockerfile: ./src/users/Dockerfile
             args:
                 DEFAULT_PORT: ${PORT}
         environment:
             NODE_ENV: DEVELOPMENT
         volumes:
-            - .:/nodeexample
+            - ./src/users:/nodeexample
         ports:
             - ${PORT}:${PORT}
         networks:
