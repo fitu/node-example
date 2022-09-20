@@ -1,6 +1,6 @@
 import yargs from "yargs";
 
-import UserService from "@user/domain/UserService";
+import RoutineService from "modules/routine/domain/RoutineService";
 import validateEnv from "@shared/env/envUtils";
 import getRepositories from "@shared/repositories/Repository";
 import { getSeeder } from "@shared/db/seeder";
@@ -18,14 +18,14 @@ const seedDb = async (dbType: string, dbQuery: string) => {
     await db.clearDB();
 
     // Create Repositories
-    const { userRepository } = getRepositories(db.getInstance(), dbType, dbQuery);
+    const { routineRepository } = getRepositories(db.getInstance(), dbType, dbQuery);
 
     // Create Services
-    const userService = new UserService(userRepository);
+    const routineService = new RoutineService(routineRepository);
 
     try {
         // Populate DB
-        const seeder = getSeeder(dbType, userService);
+        const seeder = getSeeder(dbType, routineService);
         await seeder.seed();
         console.log("DB fulfilled!");
     } catch (error: any) {

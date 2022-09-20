@@ -35,7 +35,7 @@
         // Define relative paths
         "paths": {
             "@app/*": ["app/*"],
-            "@user/*": ["modules/user/*"],
+            "@routine/*": ["modules/routine/*"],
             "@shared/*": ["shared/*"],
             "@utils/*": ["shared/utils/*"]
         }

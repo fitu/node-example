@@ -1,6 +1,6 @@
 import "reflect-metadata";
 
-import UserService from "@user/domain/UserService";
+import RoutineService from "modules/routine/domain/RoutineService";
 import validateEnv from "@shared/env/envUtils";
 import getRepositories from "@shared/repositories/Repository";
 import { getDb } from "@shared/db/database";
@@ -25,14 +25,14 @@ void (async () => {
 
         // Create Repositories
         const dbQuery = env.DB_QUERIES;
-        const { userRepository } = getRepositories(db.getInstance(), dbType, dbQuery);
+        const { routineRepository } = getRepositories(db.getInstance(), dbType, dbQuery);
 
         // Create Services
-        const userService = new UserService(userRepository);
+        const routineService = new RoutineService(routineRepository);
 
         // Create Controllers
         const version = env.VERSION;
-        const controllers = getRouters(version, userService);
+        const controllers = getRouters(version, routineService);
 
         // Create Middlewares
         const middlewares = [

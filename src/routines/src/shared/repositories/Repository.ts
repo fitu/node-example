@@ -1,9 +1,9 @@
-import { Repository as UserRepository } from "@user/infrastructure/Repository";
+import { Repository as RoutineRepository } from "modules/routine/infrastructure/Repository";
 import { DbType } from "@shared/db/database";
 import InMemoryRepository from "@shared/repositories/inMemory/InMemoryRepository";
 
 type Repos = {
-    userRepository: UserRepository;
+    routineRepository: RoutineRepository;
 };
 
 interface Repository {

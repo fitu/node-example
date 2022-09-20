@@ -1,5 +1,5 @@
 import { Repos, Repository } from "@shared/repositories/Repository";
-import InMemoryUserRepository from "@user/infrastructure/inMemory/UserRepository";
+import InMemoryRoutineRepository from "modules/routine/infrastructure/inMemory/RoutineRepository";
 
 class InMemoryRepository implements Repository {
     readonly client: any;
@@ -10,7 +10,7 @@ class InMemoryRepository implements Repository {
 
     public getRepos(_: string): Repos {
         return {
-            userRepository: new InMemoryUserRepository(this.client),
+            routineRepository: new InMemoryRoutineRepository(this.client),
         };
     }
 }

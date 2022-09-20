@@ -57,7 +57,7 @@ class UserService {
     public async updateUserById(userId: string, user: User): Promise<User> {
         const updatedUser = await this.userRepository.updateUserById(userId, user);
 
-        if (!user) {
+        if (!updatedUser) {
             throw new UserNotFoundError();
         }
 

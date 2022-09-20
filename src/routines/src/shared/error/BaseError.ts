@@ -3,14 +3,12 @@ enum ErrorCodes {
     UNKNOWN = "",
 
     NOT_FOUND = "nf-0",
-    USER_NOT_FOUND = "nf-1",
+    ROUTINE_NOT_FOUND = "nt-1",
 
     NOT_ALLOWED = "na-0",
-    USER_HAS_NOT_PERMISSIONS = "na-1",
-    EMAIL_ALREADY_IN_USE = "na-2",
+    USER_HAS_NOT_ROUTINE = "na-1",
 
     INVALID_DATA = "id-0",
-    SIGN_IN = "auth-0",
 }
 
 class BaseError {
