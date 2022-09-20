@@ -8,14 +8,13 @@ services:
                 DEFAULT_PORT: ${USERS_PORT}
         environment:
             NODE_ENV: DEVELOPMENT
-        env_file:
-            - ./src/users/secrets/.env
         volumes:
             - ./src/users:/nodeexample
         ports:
             - ${USERS_PORT}:${USERS_PORT}
         networks:
             - frontend
+            - backend
             - backend-sql
             - backend-nosql
         depends_on:
@@ -31,8 +30,6 @@ services:
             dockerfile: ./src/routines/Dockerfile
             args:
                 DEFAULT_PORT: ${ROUTINES_PORT}
-        env_file:
-            - ./src/routines/secrets/.env
         environment:
             NODE_ENV: DEVELOPMENT
         volumes:
@@ -40,6 +37,7 @@ services:
         ports:
             - ${ROUTINES_PORT}:${ROUTINES_PORT}
         networks:
+            - backend
             - backend-inmemory
         depends_on:
             - inmemorydb
@@ -109,6 +107,7 @@ volumes:
 
 networks:
     frontend:
+    backend:
     backend-sql:
     backend-nosql:
     backend-inmemory:
