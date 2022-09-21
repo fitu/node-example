@@ -1,4 +1,4 @@
-import { cleanEnv, str, port } from "envalid";
+import { cleanEnv, str, port, url } from "envalid";
 import dotenv from "dotenv";
 import path from "path";
 
@@ -32,6 +32,8 @@ const validateEnv = (): any => {
         DB_NO_SQL_PASSWORD: str(),
         DB_NO_SQL_HOST: str(),
         DB_NO_SQL_PORT: port(),
+
+        INTEGRATION_ROUTINE_URL: url(),
 
         VERSION: str({ choices: Object.values(Versions) }),
 

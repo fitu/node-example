@@ -1,5 +1,3 @@
-import yargs from "yargs";
-
 import RoutineService from "modules/routine/domain/RoutineService";
 import validateEnv from "@shared/env/envUtils";
 import getRepositories from "@shared/repositories/Repository";

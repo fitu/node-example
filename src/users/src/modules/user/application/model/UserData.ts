@@ -45,7 +45,7 @@ class UserData {
         email: string;
         role: UserRole;
         password?: string;
-        routine: RoutineData;
+        routine?: RoutineData;
     }): UserData {
         const userData = new UserData(firstName, lastName, email, role, id, password, routine);
 
@@ -57,11 +57,13 @@ class UserData {
             return null;
         }
 
-        const routine = RoutineData.newInstance({
-            id: user.routine.id,
-            description: user.routine.description,
-            userId: user.routine.userId,
-        });
+        const routine =
+            user.routine &&
+            RoutineData.newInstance({
+                id: user.routine.id,
+                description: user.routine.description,
+                userId: user.routine.userId,
+            });
 
         const userData = UserData.newInstance({
             id: user.id,
@@ -77,7 +79,7 @@ class UserData {
     }
 
     toView(): UserViewModel {
-        const routine = RoutineViewModel.newInstance({
+        const routine = this.routine && RoutineViewModel.newInstance({
             id: this.routine.id,
             description: this.routine.description,
             userId: this.routine.userId,

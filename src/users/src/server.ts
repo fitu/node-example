@@ -26,11 +26,17 @@ void (async () => {
 
         // Create Repositories
         const dbQuery = env.DB_QUERIES;
-        const { userRepository } = getRepositories(db.getInstance(), dbType, dbQuery);
+        const routineIntegrationUrl = env.INTEGRATION_ROUTINE_URL;
+        const { userRepository, routineRepository } = getRepositories(
+            db.getInstance(),
+            dbType,
+            dbQuery,
+            routineIntegrationUrl
+        );
 
         // Create Services
         const userService = new UserService(userRepository);
-        const routineService = new RoutineService();
+        const routineService = new RoutineService(routineRepository);
 
         // Create Controllers
         const version = env.VERSION;

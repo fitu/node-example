@@ -6,6 +6,7 @@ import validateEnv from "@shared/env/envUtils";
 import getRepositories from "@shared/repositories/Repository";
 import { getSeeder } from "@shared/db/seeder";
 import { DbQuery, DbType, getDb } from "@shared/db/database";
+import RoutineService from "@user/domain/RoutineService";
 
 const seedDb = async (dbType: string, dbQuery: string) => {
     // Validate env before start
@@ -19,10 +20,11 @@ const seedDb = async (dbType: string, dbQuery: string) => {
     await db.clearDB();
 
     // Create Repositories
-    const { userRepository } = getRepositories(db.getInstance(), dbType, dbQuery);
+    const { userRepository, routineRepository } = getRepositories(db.getInstance(), dbType, dbQuery, null);
 
     // Create Services
     const userService = new UserService(userRepository);
+    const routineService = new RoutineService(routineRepository);
 
     try {
         // Populate DB
