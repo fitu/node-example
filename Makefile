@@ -2,7 +2,7 @@
 populate-db:
 	docker-compose --file docker-compose.yml --env-file ./secrets/.env run nodeexampleusers npm run seed -- --type=sql --query=orm
 	docker-compose --file docker-compose.yml --env-file ./secrets/.env run nodeexampleusers npm run seed -- --type=no_sql --query=orm
-	docker-compose --file docker-compose.yml --env-file ./secrets/.env run nodeexampleroutines npm run seed -- --type=in_memory
+	docker-compose --file docker-compose.yml --env-file ./secrets/.env run nodeexampleroutines npm run seed
 
 populate-sql-orm:
 	docker-compose --file docker-compose.yml --env-file ./secrets/.env run nodeexampleusers npm run seed -- --type=sql --query=orm
@@ -17,7 +17,7 @@ populate-nosql-raw:
 	docker-compose --file docker-compose.yml --env-file ./secrets/.env run nodeexampleusers npm run seed -- --type=no_sql --query=raw
 
 populate-inmemory:
-	docker-compose --file docker-compose.yml --env-file ./secrets/.env run nodeexampleroutines npm run seed -- --type=in_memory
+	docker-compose --file docker-compose.yml --env-file ./secrets/.env run nodeexampleroutines npm run seed
 
 # Config
 envs:

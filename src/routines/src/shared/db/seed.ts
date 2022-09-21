@@ -4,28 +4,28 @@ import RoutineService from "modules/routine/domain/RoutineService";
 import validateEnv from "@shared/env/envUtils";
 import getRepositories from "@shared/repositories/Repository";
 import { getSeeder } from "@shared/db/seeder";
-import { DbType, getDb } from "@shared/db/database";
+import { getDb } from "@shared/db/database";
 
-const seedDb = async (dbType: string, dbQuery: string) => {
+const seedDb = async () => {
     // Validate env before start
     const env = validateEnv();
 
     // Initialize and connect to DB
-    const db = getDb(env, dbType);
+    const db = getDb(env);
     await db.init({ force: true });
 
     // Clear data
     await db.clearDB();
 
     // Create Repositories
-    const { routineRepository } = getRepositories(db.getInstance(), dbType, dbQuery);
+    const { routineRepository } = getRepositories(db.getInstance());
 
     // Create Services
     const routineService = new RoutineService(routineRepository);
 
     try {
         // Populate DB
-        const seeder = getSeeder(dbType, routineService);
+        const seeder = getSeeder(routineService);
         await seeder.seed();
         console.log("DB fulfilled!");
     } catch (error: any) {
@@ -36,20 +36,5 @@ const seedDb = async (dbType: string, dbQuery: string) => {
     }
 };
 
-// Load the arguments
-const argv = yargs
-    .scriptName("seed")
-    .usage("Usage: $0 -t DbType -q DbQuery")
-    // eslint-disable-next-line @typescript-eslint/restrict-template-expressions
-    .example(`$0 -t ${DbType.IN_MEMORY}`, "Populate IN MEMORY")
-    .option("t", {
-        alias: "type",
-        describe: "DB type",
-        type: "string",
-        choices: Object.values(DbType),
-    }).argv;
-
-const { type, query } = argv;
-
 // Populate db
-void seedDb(type, query);
+void seedDb();

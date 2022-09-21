@@ -67,8 +67,8 @@ class RoutineRepository implements Repository {
         return updatedRoutine;
     }
 
-    public async deleteRoutineById(userId: string): Promise<boolean> {
-        const routine = await this.getRoutineByUserId(userId);
+    public async deleteRoutineById(routineId: string): Promise<boolean> {
+        const routine = await this.getRoutineById(routineId);
 
         if (!routine) {
             return false;
@@ -78,7 +78,7 @@ class RoutineRepository implements Repository {
 
         await this.client.sRem(generateUniqueRoutineKey(), routineDao.userId);
         await this.client.json.del(generateRoutineUserIdKey(routineDao.userId), KEY_ROOT);
-        await this.client.json.del(generateRoutineKey(userId), KEY_ROOT);
+        await this.client.json.del(generateRoutineKey(routineId), KEY_ROOT);
 
         return true;
     }

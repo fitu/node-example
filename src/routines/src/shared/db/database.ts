@@ -1,10 +1,5 @@
 import InMemoryDb from "@shared/db/inMemory/InMemoryDb";
 
-/* eslint-disable @typescript-eslint/naming-convention */
-enum DbType {
-    IN_MEMORY = "in_memory",
-}
-
 interface DatabaseOptions {
     readonly force?: boolean;
 }
@@ -15,14 +10,12 @@ interface Database {
     getInstance: () => any;
 }
 
-const getDb = (env: any, dbType: string): Database => {
-    const db: Database = {
-        [DbType.IN_MEMORY]: new InMemoryDb(env),
-    }[dbType];
+const getDb = (env: any): Database => {
+    const db: Database = new InMemoryDb(env);
 
     return db;
 };
 
 export type { DatabaseOptions };
-export { getDb, DbType };
+export { getDb };
 export default Database;

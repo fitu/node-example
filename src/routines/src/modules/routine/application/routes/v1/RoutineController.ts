@@ -19,6 +19,8 @@ import DeleteRoutineByIdInteractor, {
     DeleteRoutineByIdData,
 } from "modules/routine/application/DeleteRoutineByIdInteractor";
 import GetRoutineByIdInteractor, { GetRoutineByIdData } from "@routine/application/GetRoutineByIdInteractor";
+import RoutineAlreadyExistsError from "@routine/application/error/RoutineAlreadyExists";
+import UserHasNotRoutineError from "@routine/application/error/UserHasNotRoutineError";
 
 class RoutineController implements Controller {
     constructor(private readonly routineService: RoutineService) {}
@@ -54,6 +56,10 @@ class RoutineController implements Controller {
             res.status(httpStatus.OK).json({ success: true, data: routine });
         } catch (error: any) {
             if (error instanceof RoutineNotFoundError) {
+                next(new ErrorHandler(httpStatus.NOT_FOUND, error));
+                return;
+            }
+            if (error instanceof UserHasNotRoutineError) {
                 next(new ErrorHandler(httpStatus.NOT_FOUND, error));
                 return;
             }
@@ -104,6 +110,10 @@ class RoutineController implements Controller {
         } catch (error: any) {
             if (error instanceof RoutineNotFoundError) {
                 next(new ErrorHandler(httpStatus.NOT_FOUND, error));
+                return;
+            }
+            if (error instanceof RoutineAlreadyExistsError) {
+                next(new ErrorHandler(httpStatus.UNPROCESSABLE_ENTITY, error));
                 return;
             }
             next(error);

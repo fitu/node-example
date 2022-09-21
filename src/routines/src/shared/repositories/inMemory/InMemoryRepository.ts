@@ -8,7 +8,7 @@ class InMemoryRepository implements Repository {
         this.client = db;
     }
 
-    public getRepos(_: string): Repos {
+    public getRepos(): Repos {
         return {
             routineRepository: new InMemoryRoutineRepository(this.client),
         };

@@ -1,5 +1,4 @@
 import RoutineService from "modules/routine/domain/RoutineService";
-import { DbType } from "@shared/db/database";
 import InMemorySeeder from "@shared/db/inMemory/InMemorySeeder";
 
 const ROUTINES_CSV_PATH = "src/modules/routine/infrastructure/data/routines.csv";
@@ -8,10 +7,8 @@ interface Seeder {
     seed: () => Promise<void>;
 }
 
-const getSeeder = (dbType: string, routineService: RoutineService): Seeder => {
-    const seeder: Seeder = {
-        [DbType.IN_MEMORY]: new InMemorySeeder({ routineService }),
-    }[dbType];
+const getSeeder = (routineService: RoutineService): Seeder => {
+    const seeder: Seeder = new InMemorySeeder({ routineService });
 
     return seeder;
 };

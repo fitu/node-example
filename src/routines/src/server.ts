@@ -17,15 +17,13 @@ void (async () => {
     try {
         // Validate env before start
         const env = validateEnv();
-        const dbType = env.DB_TYPE;
 
         // Initialize and connect to DB
-        const db = getDb(env, dbType);
+        const db = getDb(env);
         await db.init();
 
         // Create Repositories
-        const dbQuery = env.DB_QUERIES;
-        const { routineRepository } = getRepositories(db.getInstance(), dbType, dbQuery);
+        const { routineRepository } = getRepositories(db.getInstance());
 
         // Create Services
         const routineService = new RoutineService(routineRepository);

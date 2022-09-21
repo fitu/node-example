@@ -13,6 +13,10 @@ RUN npm install
 # Move all the app's code to the working dir
 COPY ./src/users/ /nodeexample/
 
+# Move secrets
+RUN mkdir -p /nodeexample/secrets
+COPY ./secrets/.env /nodeexample/secrets/
+
 # Compile the app
 RUN npm run build
 
