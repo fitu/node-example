@@ -1,7 +1,7 @@
 import { readFromCsv } from "@shared/data/csvUtils";
 import Seeder, { ROUTINES_CSV_PATH } from "@shared/db/seeder";
-import RoutineCSV from "modules/routine/infrastructure/data/RoutineCSV";
-import RoutineService from "modules/routine/domain/RoutineService";
+import RoutineCSV from "@routine/infrastructure/data/RoutineCSV";
+import RoutineService from "@routine/domain/RoutineService";
 
 class InMemorySeeder implements Seeder {
     readonly routineService: RoutineService;

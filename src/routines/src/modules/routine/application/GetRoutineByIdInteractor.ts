@@ -1,5 +1,5 @@
-import RoutineService from "modules/routine/domain/RoutineService";
-import RoutineData from "modules/routine/application/RoutineData";
+import RoutineService from "@routine/domain/RoutineService";
+import RoutineData from "@routine/application/RoutineData";
 import RoutineNotFoundError from "./error/RoutineNotFoundError";
 
 type GetRoutineByIdData = {

@@ -1,4 +1,4 @@
-import RoutineService from "modules/routine/domain/RoutineService";
+import RoutineService from "@routine/domain/RoutineService";
 
 type DeleteRoutineByIdData = {
     readonly routineId: string;

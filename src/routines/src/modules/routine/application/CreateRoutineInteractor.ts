@@ -1,10 +1,10 @@
 import { validate } from "class-validator";
 import { plainToInstance } from "class-transformer";
 
-import Routine from "modules/routine/domain/Routine";
-import RoutineService from "modules/routine/domain/RoutineService";
-import RoutineData from "modules/routine/application/RoutineData";
-import RoutineAlreadyExistsError from "modules/routine/application/error/RoutineAlreadyExists";
+import Routine from "@routine/domain/Routine";
+import RoutineService from "@routine/domain/RoutineService";
+import RoutineData from "@routine/application/RoutineData";
+import RoutineAlreadyExistsError from "@routine/application/error/RoutineAlreadyExists";
 
 type CreateRoutineData = {
     readonly routineData: RoutineData;

@@ -1,4 +1,4 @@
-import RoutineService from "modules/routine/domain/RoutineService";
+import RoutineService from "@routine/domain/RoutineService";
 import InMemorySeeder from "@shared/db/inMemory/InMemorySeeder";
 
 const ROUTINES_CSV_PATH = "src/modules/routine/infrastructure/data/routines.csv";

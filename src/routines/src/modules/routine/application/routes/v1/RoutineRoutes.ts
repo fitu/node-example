@@ -1,8 +1,8 @@
 import { body, param, query } from "express-validator";
 
-import RoutineService from "modules/routine/domain/RoutineService";
+import RoutineService from "@routine/domain/RoutineService";
 import Routes from "@shared/routes/Routes";
-import RoutineController from "modules/routine/application/routes/v1/RoutineController";
+import RoutineController from "@routine/application/routes/v1/RoutineController";
 import isValid from "@shared/middlewares/validationMiddleware";
 
 class RoutineRoutes extends Routes {

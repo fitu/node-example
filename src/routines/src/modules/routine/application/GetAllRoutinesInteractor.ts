@@ -1,6 +1,6 @@
 import Page from "@shared/Page";
-import RoutineService from "modules/routine/domain/RoutineService";
-import RoutineData from "modules/routine/application/RoutineData";
+import RoutineService from "@routine/domain/RoutineService";
+import RoutineData from "@routine/application/RoutineData";
 
 type GetAllRoutinesData = {
     readonly page: number;

@@ -1,4 +1,4 @@
-import { Repository as RoutineRepository } from "modules/routine/infrastructure/Repository";
+import { Repository as RoutineRepository } from "@routine/infrastructure/Repository";
 import InMemoryRepository from "@shared/repositories/inMemory/InMemoryRepository";
 
 type Repos = {

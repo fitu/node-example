@@ -4,9 +4,9 @@ import { LanguageDetector, handle } from "i18next-http-middleware";
 
 import Middleware from "@shared/middlewares/Middleware";
 import enBaseTranslations from "@shared/resources/locales/en/translation.json";
-import enUserTranslations from "modules/routine/resources/locales/en/translation.json";
+import enUserTranslations from "@routine/resources/locales/en/translation.json";
 import esBaseTranslations from "@shared/resources/locales/es/translation.json";
-import esUserTranslations from "modules/routine/resources/locales/es/translation.json";
+import esUserTranslations from "@routine/resources/locales/es/translation.json";
 
 const DEFAULT_LANGUAGE = "en";
 const ACCEPTED_LANGUAGES = [DEFAULT_LANGUAGE, "es"];

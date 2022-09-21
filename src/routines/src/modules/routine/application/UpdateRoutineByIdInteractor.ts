@@ -1,7 +1,7 @@
-import RoutineService from "modules/routine/domain/RoutineService";
-import Routine from "modules/routine/domain/Routine";
-import RoutineNotFoundError from "modules/routine/application/error/RoutineNotFoundError";
-import RoutineData from "modules/routine/application/RoutineData";
+import RoutineService from "@routine/domain/RoutineService";
+import Routine from "@routine/domain/Routine";
+import RoutineNotFoundError from "@routine/application/error/RoutineNotFoundError";
+import RoutineData from "@routine/application/RoutineData";
 import { filterNulls } from "@shared/utils/objectUtils";
 
 type UpdateRoutineByIdData = {

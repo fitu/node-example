@@ -1,7 +1,7 @@
 /* eslint-disable @typescript-eslint/naming-convention */
 import Routes from "@shared/routes/Routes";
-import RoutineService from "modules/routine/domain/RoutineService";
-import RoutineRoutes from "modules/routine/application/routes/v1/RoutineRoutes";
+import RoutineService from "@routine/domain/RoutineService";
+import RoutineRoutes from "@routine/application/routes/v1/RoutineRoutes";
 
 enum Versions {
     V1 = "v1",

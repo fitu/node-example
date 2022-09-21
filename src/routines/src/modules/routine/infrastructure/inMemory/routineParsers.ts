@@ -2,8 +2,8 @@ import { plainToInstance } from "class-transformer";
 import { validate } from "class-validator";
 import { v4 as uuidv4 } from "uuid";
 
-import Routine from "modules/routine/domain/Routine";
-import RoutineDao from "modules/routine/infrastructure/inMemory/RoutineDao";
+import Routine from "@routine/domain/Routine";
+import RoutineDao from "@routine/infrastructure/inMemory/RoutineDao";
 
 const fromModelToDao = async (routine: Routine | null): Promise<RoutineDao | null> => {
     if (!routine) {

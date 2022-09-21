@@ -1,8 +1,8 @@
 /* eslint-disable @typescript-eslint/require-await */
 import Page from "@shared/Page";
-import RoutineNotFoundError from "modules/routine/application/error/RoutineNotFoundError";
-import { Repository as RoutineRepository } from "modules/routine/infrastructure/Repository";
-import Routine from "modules/routine/domain/Routine";
+import RoutineNotFoundError from "@routine/application/error/RoutineNotFoundError";
+import { Repository as RoutineRepository } from "@routine/infrastructure/Repository";
+import Routine from "@routine/domain/Routine";
 
 class RoutineService {
     constructor(private readonly routineRepository: RoutineRepository) {}

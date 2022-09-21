@@ -1,4 +1,4 @@
-import Routine from "modules/routine/domain/Routine";
+import Routine from "@routine/domain/Routine";
 
 class RoutineCSV {
     constructor(public id: string, public description: string, public userId: string) {}

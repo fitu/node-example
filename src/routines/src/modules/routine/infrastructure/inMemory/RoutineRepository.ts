@@ -2,17 +2,17 @@
 import { RedisClientType } from "redis";
 
 import Page from "@shared/Page";
-import Routine from "modules/routine/domain/Routine";
-import { Repository } from "modules/routine/infrastructure/Repository";
+import Routine from "@routine/domain/Routine";
+import { Repository } from "@routine/infrastructure/Repository";
 import RoutineDao, {
     generateRoutineUserIdKey,
     generateUniqueRoutineKey,
     generateRoutineKey,
-} from "modules/routine/infrastructure/inMemory/RoutineDao";
+} from "@routine/infrastructure/inMemory/RoutineDao";
 import {
     fromDaoToModel as fromRoutineDaoToModel,
     fromModelToDao as fromModelToRoutineDao,
-} from "modules/routine/infrastructure/inMemory/routineParsers";
+} from "@routine/infrastructure/inMemory/routineParsers";
 import { KEY_ROOT } from "@shared/db/inMemory/InMemoryDb";
 
 class RoutineRepository implements Repository {

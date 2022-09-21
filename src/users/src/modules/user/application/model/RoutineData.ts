@@ -1,5 +1,5 @@
-import Routine from "modules/user/domain/Routine";
-import RoutineViewModel from "modules/user/application//model/RoutineViewModel";
+import Routine from "@user/domain/Routine";
+import RoutineViewModel from "@user/application//model/RoutineViewModel";
 
 class RoutineData {
     readonly id?: string;

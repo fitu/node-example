@@ -1,6 +1,6 @@
 import "reflect-metadata";
 
-import RoutineService from "modules/routine/domain/RoutineService";
+import RoutineService from "@routine/domain/RoutineService";
 import validateEnv from "@shared/env/envUtils";
 import getRepositories from "@shared/repositories/Repository";
 import { getDb } from "@shared/db/database";

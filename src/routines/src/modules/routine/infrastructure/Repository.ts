@@ -1,5 +1,5 @@
 import Page from "@shared/Page";
-import Routine from "modules/routine/domain/Routine";
+import Routine from "@routine/domain/Routine";
 
 interface Repository {
     insert: (routine: Routine) => Promise<Routine>;

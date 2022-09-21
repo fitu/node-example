@@ -4,20 +4,20 @@ import httpStatus from "http-status";
 import { Controller } from "@shared/controllers/Controller";
 import { ErrorHandler } from "@shared/error/ErrorHandler";
 import { getPageAndItemsPerPage } from "@shared/Page";
-import RoutineService from "modules/routine/domain/RoutineService";
-import RoutineNotFoundError from "modules/routine/application/error/RoutineNotFoundError";
+import RoutineService from "@routine/domain/RoutineService";
+import RoutineNotFoundError from "@routine/application/error/RoutineNotFoundError";
 import GetRoutineByUserIdInteractor, {
     GetRoutineByUserIdData,
-} from "modules/routine/application/GetRoutineByUserIdInteractor";
-import GetAllRoutinesInteractor, { GetAllRoutinesData } from "modules/routine/application/GetAllRoutinesInteractor";
-import RoutineData from "modules/routine/application/RoutineData";
-import CreateRoutineInteractor from "modules/routine/application/CreateRoutineInteractor";
+} from "@routine/application/GetRoutineByUserIdInteractor";
+import GetAllRoutinesInteractor, { GetAllRoutinesData } from "@routine/application/GetAllRoutinesInteractor";
+import RoutineData from "@routine/application/RoutineData";
+import CreateRoutineInteractor from "@routine/application/CreateRoutineInteractor";
 import UpdateRoutineByIdInteractor, {
     UpdateRoutineByIdData,
-} from "modules/routine/application/UpdateRoutineByIdInteractor";
+} from "@routine/application/UpdateRoutineByIdInteractor";
 import DeleteRoutineByIdInteractor, {
     DeleteRoutineByIdData,
-} from "modules/routine/application/DeleteRoutineByIdInteractor";
+} from "@routine/application/DeleteRoutineByIdInteractor";
 import GetRoutineByIdInteractor, { GetRoutineByIdData } from "@routine/application/GetRoutineByIdInteractor";
 import RoutineAlreadyExistsError from "@routine/application/error/RoutineAlreadyExists";
 import UserHasNotRoutineError from "@routine/application/error/UserHasNotRoutineError";
