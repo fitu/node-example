@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/require-await */
 import { Server } from "http";
 
 import express, { Application } from "express";
@@ -6,20 +7,19 @@ import { handleAppErrors } from "@shared/error/errorController";
 import Middleware from "@shared/middlewares/Middleware";
 import Routes from "@shared/routes/Routes";
 
-const BASE_VERSION = "/api/v1";
-
 class App {
     private readonly app: Application;
+    public readonly version: string;
 
     constructor(
-        // private readonly io: Server,
         private readonly controllers: Array<Routes>,
-        private readonly middlewares: Array<Middleware>
+        private readonly middlewares: Array<Middleware>,
+        version: string
     ) {
         this.app = express();
-        // this.io = io;
         this.controllers = controllers;
         this.middlewares = middlewares;
+        this.version = version;
     }
 
     public async init(): Promise<void> {
@@ -37,7 +37,7 @@ class App {
 
     private initializeControllers(): void {
         this.controllers.forEach((controller) => {
-            this.app.use(BASE_VERSION, controller.router);
+            this.app.use(this.version, controller.router);
         });
         this.app.use(handleAppErrors);
     }
@@ -56,5 +56,4 @@ class App {
     }
 }
 
-export { BASE_VERSION };
 export default App;

@@ -10,6 +10,7 @@ services:
             NODE_ENV: DEVELOPMENT
         volumes:
             - ./src/users:/nodeexample
+            - user-secrets:/nodeexample/secrets
         ports:
             - ${USERS_PORT}:${USERS_PORT}
         networks:
@@ -34,6 +35,7 @@ services:
             NODE_ENV: DEVELOPMENT
         volumes:
             - ./src/routines:/nodeexample
+            - routine-secrets:/nodeexample/secrets
         ports:
             - ${ROUTINES_PORT}:${ROUTINES_PORT}
         networks:
@@ -103,6 +105,8 @@ volumes:
     sql-data:
     nosql-data:
     inmemory-data:
+    user-secrets:
+    routine-secrets:
 
 
 networks:

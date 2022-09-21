@@ -5,8 +5,8 @@ import RoutineService from "@user/domain/RoutineService";
 import UserRoutes from "@user/application/routes/v1/UserRoutes";
 
 enum Versions {
-    V1 = "v1",
-    V2 = "v2",
+    V1 = "/api/v1",
+    V2 = "api/v2",
     ALL = "all",
 }
 

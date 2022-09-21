@@ -3,7 +3,7 @@ import { expect } from "chai";
 
 import NotFoundError from "@shared/error/BaseNotFoundError";
 import NotAllowedError from "@shared/error/BaseNotAllowedError";
-import DeleteUserByIdInteractor, { DeleteUserByIdData } from "@user/application/DeleteUserByIdInteractor";
+import DeleteUserByIdInteractor, { DeleteUserByIdData } from "@user/application/interactors/DeleteUserByIdInteractor";
 import UserService from "@user/domain/UserService";
 import UserNotFoundError from "@user/application/error/UserNotFoundError";
 

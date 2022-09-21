@@ -8,20 +8,20 @@ import { generateJWTToken } from "@shared/utils/hashUtils";
 import UserService from "@user/domain/UserService";
 import RoutineService from "@user/domain/RoutineService";
 import UserNotFoundError from "@user/application/error/UserNotFoundError";
-import GetUserByIdInteractor, { GetUserByIdData } from "@user/application/GetUserByIdInteractor";
-import GetAllUsersInteractor, { GetAllUsersData } from "@user/application/GetAllUsersInteractor";
 import UserData from "@user/application/model/UserData";
-import CreateUserInteractor from "@user/application/CreateUserInteractor";
 import UserHasNotPermissionsError from "@user/application/error/UserHasNotPermissionsError";
 import EmailAlreadyInUseError from "@user/application/error/EmailAlreadyInUseError";
-import UpdateUserByIdInteractor, { UpdateUserByIdData } from "@user/application/UpdateUserByIdInteractor";
-import DeleteUserByIdInteractor, { DeleteUserByIdData } from "@user/application/DeleteUserByIdInteractor";
-import SignInUserInteractor from "@user/application/SignInUserInteractor";
+import GetUserByIdInteractor, { GetUserByIdData } from "@user/application/interactors/GetUserByIdInteractor";
+import GetAllUsersInteractor, { GetAllUsersData } from "@user/application/interactors/GetAllUsersInteractor";
+import CreateUserInteractor from "@user/application/interactors/CreateUserInteractor";
+import UpdateUserByIdInteractor, { UpdateUserByIdData } from "@user/application/interactors/UpdateUserByIdInteractor";
+import DeleteUserByIdInteractor, { DeleteUserByIdData } from "@user/application/interactors/DeleteUserByIdInteractor";
+import SignInUserInteractor from "@user/application/interactors/SignInUserInteractor";
 import SignInError from "@user/application/error/SignInError";
 import { UserRole } from "@user/domain/User";
 import GetUserByIdWithRoutineInteractor, {
     GetUserByIdWithRoutineData,
-} from "@user/application/GetUserByIdWithRoutineInteractor";
+} from "@user/application/interactors/GetUserByIdWithRoutineInteractor";
 
 class UserController implements Controller {
     constructor(private readonly userService: UserService, private readonly routineService: RoutineService) {}

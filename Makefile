@@ -1,3 +1,13 @@
+# Kubernetes
+kb-clean:
+	kubectl delete deployment node-example-user-deployment; kubectl delete deployment node-example-routine-deployment; kubectl delete deployment nosqldb-deployment; kubectl delete deployment inmemory-deployment; kubectl delete service node-example-user-service; kubectl delete service node-example-routine-service; kubectl delete service nosqldb-service; kubectl delete service inmemory-service; kubectl delete configmap node-example-env; kubectl delete secret node-example-secret;
+
+kb-apply:
+	kubectl apply -f deployment/node-example-user-deployment.yml -f deployment/node-example-routine-deployment.yml -f deployment/nosqldb-deployment.yml -f deployment/inmemory-deployment.yml -f deployment/node-example-user-service.yml -f deployment/node-example-routine-service.yml -f deployment/nosqldb-service.yml -f deployment/inmemory-service.yml -f secrets/env.yml -f secrets/secret.yml
+
+kb-events:
+	kubectl get events -w
+
 # DB
 populate-db:
 	docker-compose --file docker-compose.yml --env-file ./secrets/.env run nodeexampleusers npm run seed -- --type=sql --query=orm

@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/require-await */
 import User from "@user/domain/User";
 import UserDao, {
     UserFullAttributes,
@@ -9,7 +10,6 @@ import UserDao, {
     USER_ROLE,
 } from "@user/infrastructure/sql/UserDao";
 
-// eslint-disable-next-line @typescript-eslint/require-await
 const fromModelToDao = async (user: User | null): Promise<UserFullAttributes | null> => {
     if (!user) {
         return null;

@@ -55,7 +55,7 @@ void (async () => {
         // Initialize Third Party Integrations
 
         // Create app and launch it!
-        const app = new App(controllers, middlewares);
+        const app = new App(controllers, middlewares, version);
         await app.init();
         await app.listen();
     } catch (error: any) {

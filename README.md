@@ -112,7 +112,7 @@ Note: It only works with a no-sql db (mongodb image) as another POD
 
 #### Apply files
 ```bash
-  kubectl apply -f deployment/node-example-deployment.yml -f deployment/nosqldb-deployment.yml -f deployment/node-example-service.yml -f deployment/nosqldb-service.yml -f secrets/env.yml -f secrets/secret.yml
+  kubectl apply -f deployment/node-example-deployment.yml -f deployment/nosqldb-deployment.yml -f deployment/nosqldb-service.yml -f secrets/env.yml -f secrets/secret.yml
 ```
 
 ## License
