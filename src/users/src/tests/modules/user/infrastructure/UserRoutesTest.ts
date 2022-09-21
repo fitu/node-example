@@ -11,11 +11,13 @@ import App from "@app/app";
 import fileUploaderMiddleware, { MulterRequest } from "@shared/middlewares/fileUploaderMiddleware";
 import UserNotFoundError from "@user/application/error/UserNotFoundError";
 import UserService from "@user/domain/UserService";
+import RoutineService from "@user/domain/RoutineService";
 import UserRoutes from "@user/application/routes/v1/UserRoutes";
 import TestRequest from "../../../shared/utils/requests";
 
 describe("UserRoutes", () => {
     let userService: UserService;
+    let routineService: RoutineService;
     let server: Server;
     let api: TestRequest;
     let sandbox: SinonSandbox;
@@ -24,7 +26,7 @@ describe("UserRoutes", () => {
 
     beforeEach(async () => {
         userService = <UserService>{};
-        const controller = new UserRoutes(userService);
+        const controller = new UserRoutes(userService, routineService);
         const middlewares = [];
         path = controller.path;
         const app = new App([controller], middlewares);

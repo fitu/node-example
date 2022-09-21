@@ -6,10 +6,11 @@ import { ErrorHandler } from "@shared/error/ErrorHandler";
 import { getPageAndItemsPerPage } from "@shared/Page";
 import { generateJWTToken } from "@shared/utils/hashUtils";
 import UserService from "@user/domain/UserService";
+import RoutineService from "@user/domain/RoutineService";
 import UserNotFoundError from "@user/application/error/UserNotFoundError";
 import GetUserByIdInteractor, { GetUserByIdData } from "@user/application/GetUserByIdInteractor";
 import GetAllUsersInteractor, { GetAllUsersData } from "@user/application/GetAllUsersInteractor";
-import UserData from "@user/application/UserData";
+import UserData from "@user/application/model/UserData";
 import CreateUserInteractor from "@user/application/CreateUserInteractor";
 import UserHasNotPermissionsError from "@user/application/error/UserHasNotPermissionsError";
 import EmailAlreadyInUseError from "@user/application/error/EmailAlreadyInUseError";
@@ -18,9 +19,12 @@ import DeleteUserByIdInteractor, { DeleteUserByIdData } from "@user/application/
 import SignInUserInteractor from "@user/application/SignInUserInteractor";
 import SignInError from "@user/application/error/SignInError";
 import { UserRole } from "@user/domain/User";
+import GetUserByIdWithRoutineInteractor, {
+    GetUserByIdWithRoutineData,
+} from "@user/application/GetUserByIdWithRoutineInteractor";
 
 class UserController implements Controller {
-    constructor(private readonly userService: UserService) {}
+    constructor(private readonly userService: UserService, private readonly routineService: RoutineService) {}
 
     getUserById = async (req: Request, res: Response, next: NextFunction): Promise<void> => {
         const { id } = req.params;
@@ -28,6 +32,25 @@ class UserController implements Controller {
 
         try {
             const interactor = new GetUserByIdInteractor(this.userService);
+            const result = await interactor.execute(data);
+            const user = result.toView();
+
+            res.status(httpStatus.OK).json({ success: true, data: user });
+        } catch (error: any) {
+            if (error instanceof UserNotFoundError) {
+                next(new ErrorHandler(httpStatus.NOT_FOUND, error));
+                return;
+            }
+            next(error);
+        }
+    };
+
+    getUserByIdWithRoutine = async (req: Request, res: Response, next: NextFunction): Promise<void> => {
+        const { id } = req.params;
+        const data: GetUserByIdWithRoutineData = { userId: id };
+
+        try {
+            const interactor = new GetUserByIdWithRoutineInteractor(this.userService, this.routineService);
             const result = await interactor.execute(data);
             const user = result.toView();
 
@@ -81,6 +104,7 @@ class UserController implements Controller {
             email,
             password,
             role,
+            routine: null,
         });
         const data = { userData };
 
@@ -120,7 +144,7 @@ class UserController implements Controller {
             email: string;
             role: UserRole;
         } = req.body;
-        const userData = UserData.newInstance({ id, firstName, lastName, email, role });
+        const userData = UserData.newInstance({ id, firstName, lastName, email, role, routine: null });
         const data: UpdateUserByIdData = { userId, userData };
 
         try {

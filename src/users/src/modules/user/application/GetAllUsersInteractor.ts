@@ -1,6 +1,6 @@
 import Page from "@shared/Page";
 import UserService from "@user/domain/UserService";
-import UserData from "@user/application/UserData";
+import UserData from "@user/application/model/UserData";
 
 type GetAllUsersData = {
     readonly page: number;

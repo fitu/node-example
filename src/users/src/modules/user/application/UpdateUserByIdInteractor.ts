@@ -2,7 +2,7 @@ import UserService from "@user/domain/UserService";
 import User from "@user/domain/User";
 import UserHasNotPermissionsError from "@user/application/error/UserHasNotPermissionsError";
 import UserNotFoundError from "@user/application/error/UserNotFoundError";
-import UserData from "@user/application/UserData";
+import UserData from "@user/application/model/UserData";
 import { filterNulls } from "@shared/utils/objectUtils";
 
 type UpdateUserByIdData = {

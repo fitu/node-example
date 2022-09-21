@@ -1,6 +1,6 @@
 import UserService from "@user/domain/UserService";
 import UserNotFoundError from "@user/application/error/UserNotFoundError";
-import UserData from "@user/application/UserData";
+import UserData from "@user/application/model/UserData";
 
 type GetUserByIdData = {
     readonly userId: string;

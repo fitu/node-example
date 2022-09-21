@@ -1,6 +1,7 @@
 import "reflect-metadata";
 
 import UserService from "@user/domain/UserService";
+import RoutineService from "@user/domain/RoutineService";
 import validateEnv from "@shared/env/envUtils";
 import getRepositories from "@shared/repositories/Repository";
 import { getDb } from "@shared/db/database";
@@ -29,10 +30,11 @@ void (async () => {
 
         // Create Services
         const userService = new UserService(userRepository);
+        const routineService = new RoutineService();
 
         // Create Controllers
         const version = env.VERSION;
-        const controllers = getRouters(version, userService);
+        const controllers = getRouters(version, userService, routineService);
 
         // Create Middlewares
         const middlewares = [

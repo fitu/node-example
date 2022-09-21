@@ -2,6 +2,7 @@ import { body, param, query } from "express-validator";
 
 import BaseInvalidDataError from "@shared/error/BaseInvalidDataError";
 import UserService from "@user/domain/UserService";
+import RoutineService from "@user/domain/RoutineService";
 import Routes from "@shared/routes/Routes";
 import UserController from "@user/application/routes/v1/UserController";
 import { validUserRoles } from "@user/domain/User";
@@ -12,14 +13,15 @@ class UserRoutes extends Routes {
     public path = "/users";
     private controller: UserController;
 
-    constructor(userService: UserService) {
+    constructor(userService: UserService, routineService: RoutineService) {
         super();
-        this.controller = new UserController(userService);
+        this.controller = new UserController(userService, routineService);
         this.initializeRoutes();
     }
 
     private validations = {
         getOne: [param("id").notEmpty().isUUID()],
+        getOneWithRoutine: [param("id").notEmpty().isUUID()],
         getAll: [
             query("page").isNumeric().optional({ nullable: true }),
             query("itemsPerPage").isNumeric().optional({ nullable: true }),
@@ -65,6 +67,12 @@ class UserRoutes extends Routes {
     protected override initializeRoutes = (): void => {
         this.router.get(this.path, this.validations.getAll, isValid, this.controller.getUsers);
         this.router.get(`${this.path}/:id`, this.validations.getOne, isValid, this.controller.getUserById);
+        this.router.get(
+            `${this.path}/:id/routine`,
+            this.validations.getOneWithRoutine,
+            isValid,
+            this.controller.getUserByIdWithRoutine
+        );
         this.router.post(`${this.path}/sign-up`, this.validations.signUpPost, this.controller.createUser);
         this.router.put(
             `${this.path}/:id`,

@@ -1,6 +1,7 @@
 /* eslint-disable @typescript-eslint/naming-convention */
 import Routes from "@shared/routes/Routes";
 import UserService from "@user/domain/UserService";
+import RoutineService from "@user/domain/RoutineService";
 import UserRoutes from "@user/application/routes/v1/UserRoutes";
 
 enum Versions {
@@ -9,11 +10,11 @@ enum Versions {
     ALL = "all",
 }
 
-const getRouters = (version: string, userService: UserService): Array<Routes> =>
+const getRouters = (version: string, userService: UserService, routineService: RoutineService): Array<Routes> =>
     ({
-        [Versions.V1]: [new UserRoutes(userService)],
+        [Versions.V1]: [new UserRoutes(userService, routineService)],
         [Versions.V2]: [],
-        [Versions.ALL]: [new UserRoutes(userService)],
+        [Versions.ALL]: [new UserRoutes(userService, routineService)],
     }[version]);
 
 export { Versions, getRouters };
